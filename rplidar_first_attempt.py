@@ -13,9 +13,6 @@ time.sleep(1)
 # time.sleep(5)
 # lidar.start_motor()
 
-# ob = lidar.iter_scans(scan_type='express')
-# print(ob)
-
 for i, scan in enumerate(lidar.iter_scans()):
     print('%d: Got %d measurments' % (i, len(scan)))
     if i > 10:

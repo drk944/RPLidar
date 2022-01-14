@@ -359,7 +359,7 @@ class RPLidar(object):
         time.sleep(2)
         self.clean_input()
 
-    def iter_measures(self, scan_type='normal', max_buf_meas=3000):
+    def iter_measures(self, scan_type='express', max_buf_meas=3000):
         '''Iterate over measures. Note that consumer must be fast enough,
         otherwise data will be accumulated inside buffer and consumer will get
         data with increasing lag.
