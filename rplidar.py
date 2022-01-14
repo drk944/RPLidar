@@ -41,9 +41,13 @@ STOP_BYTE = b'\x25'
 RESET_BYTE = b'\x40'
 
 _SCAN_TYPE = {
-    'normal': {'byte': b'\x20', 'response': 129, 'size': 5},
+    # 'normal': {'byte': b'\x20', 'response': 129, 'size': 5},
+    # 'force': {'byte': b'\x21', 'response': 129, 'size': 5},
+    # 'express': {'byte': b'\x82', 'response': 130, 'size': 84},
+    # Swapping normal and express
+    'express': {'byte': b'\x20', 'response': 129, 'size': 5},
     'force': {'byte': b'\x21', 'response': 129, 'size': 5},
-    'express': {'byte': b'\x82', 'response': 130, 'size': 84},
+    'normal': {'byte': b'\x82', 'response': 130, 'size': 84},
 }
 
 DESCRIPTOR_LEN = 7
