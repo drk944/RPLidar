@@ -41,13 +41,13 @@ STOP_BYTE = b'\x25'
 RESET_BYTE = b'\x40'
 
 _SCAN_TYPE = {
-    # 'normal': {'byte': b'\x20', 'response': 129, 'size': 5},
-    # 'force': {'byte': b'\x21', 'response': 129, 'size': 5},
-    # 'express': {'byte': b'\x82', 'response': 130, 'size': 84},
-    # Swapping normal and express
-    'express': {'byte': b'\x20', 'response': 129, 'size': 5},
+    'normal': {'byte': b'\x20', 'response': 129, 'size': 5},
     'force': {'byte': b'\x21', 'response': 129, 'size': 5},
-    'normal': {'byte': b'\x82', 'response': 130, 'size': 84},
+    'express': {'byte': b'\x82', 'response': 130, 'size': 84},
+    # Swapping normal and express
+    # 'express': {'byte': b'\x20', 'response': 129, 'size': 5},
+    # 'force': {'byte': b'\x21', 'response': 129, 'size': 5},
+    # 'normal': {'byte': b'\x82', 'response': 130, 'size': 84},
 }
 
 DESCRIPTOR_LEN = 7
@@ -425,7 +425,7 @@ class RPLidar(object):
                                             self.express_data.start_angle,
                                             self.express_trame)
 
-    def iter_scans(self, scan_type='normal', max_buf_meas=3000, min_len=5):
+    def iter_scans(self, scan_type='express', max_buf_meas=3000, min_len=5):
         '''Iterate over scans. Note that consumer must be fast enough,
         otherwise data will be accumulated inside buffer and consumer will get
         data with increasing lag.
