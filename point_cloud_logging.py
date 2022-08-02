@@ -5,7 +5,6 @@ import time
 import numpy as np
 import threading
 
-
 def draw():
     global is_plot
     while is_plot:
