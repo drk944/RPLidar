@@ -23,12 +23,12 @@ import matplotlib.pyplot as plt
 
 
 def plot_original(points1, points2):
-    plt.scatter(points1[0], points1[1], label="Scan 1", s=1)
-    plt.xlim(-6000, 1200)
+    plt.scatter(points1[:,0], points1[:,1], label="Scan 1", s=2)
+    plt.xlim(-6000, 1300)
     plt.ylim(-4000, 6000)
 
-    plt.scatter(points2[0], points2[1], c='r', label="Scan 2", s=1)
-    plt.xlim(-6000, 1200)
+    plt.scatter(points2[:,0], points2[:,1], c='r', label="Scan 2", s=2)
+    plt.xlim(-6000, 1300)
     plt.ylim(-4000, 6000)
 
 # Find correspondances between points in P and Q
@@ -52,8 +52,8 @@ def find_correspondences(points1, points2):
 def draw_correspondeces(P, Q, correspondences):
     label_added = False
     for i, j in correspondences:
-        x = [P[0, i], Q[0, j]]
-        y = [P[1, i], Q[1, j]]
+        x = [P[i, 0], Q[j, 0]]
+        y = [P[i, 1], Q[j, 1]]
         if not label_added:
             plt.plot(x, y, color='grey', label='correpondences')
             label_added = True
@@ -65,10 +65,35 @@ def draw_correspondeces(P, Q, correspondences):
 # fixme: format of scans is 2 arrays of x and y values, points 2 is longer than points 1
 points1 = np.load("scans.npy", allow_pickle=True)[0]
 points2 = np.load("scans1.npy", allow_pickle=True)[0]
-points2 = points2[0:471]
 
-plot_original(points1, points2)
+points1 = np.column_stack((points1[0].T,points1[1].T))
+points2 = np.column_stack((points2[0].T,points2[1].T))
+
 
 correspondences = find_correspondences(points1, points2)
 draw_correspondeces(points1, points2, correspondences)
+plot_original(points1, points2)
 plt.show()
+
+def compute_cross_covariance(P, Q, correspondences, kernel=lambda diff: 1.0):
+    cov = np.zeros((2, 2))
+    exclude_indices = []
+    for i, j in correspondences:
+        p_point = P[[i], :]
+        q_point = Q[[j], :]
+        weight = kernel(p_point - q_point)
+        if weight < 0.01:
+            exclude_indices.append(i)
+        cov += weight * q_point.dot(p_point.T)
+    return cov, exclude_indices
+
+
+cov, _ = compute_cross_covariance(points1, points2, correspondences)
+print(cov)
+
+U, S, V_T = np.linalg.svd(cov)
+print(S)
+R_found = U.dot(V_T)
+t_found = center_of_Q - R_found.dot(center_of_P)
+print("R_found =\n", R_found)
+print("t_found =\n", t_found)
