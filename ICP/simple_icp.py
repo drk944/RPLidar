@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib import animation, rc
 from math import sin, cos, atan2, pi
 from IPython.display import display, Math, Latex, Markdown, HTML
+from sqlalchemy import false
 
 
 def plot_data(data_1, data_2, label_1, label_2, markersize_1=8, markersize_2=8):
@@ -143,7 +144,7 @@ ax = plot_data(P_centered, Q_centered,
                label_1='P centered',
                label_2='Q centered')
 draw_correspondeces(P_centered, Q_centered, correspondences, ax)
-plt.show()
+plt.show(block=False)
 
 
 def compute_cross_covariance(P, Q, correspondences, kernel=lambda diff: 1.0):
