@@ -8,7 +8,7 @@ scaners. It's Python 2 and 3 compatible, but was mainly tested using Python 3.
 For protocol specifications please refer to the slamtec
 [document](http://www.slamtec.com/download/lidar/documents/en-us/rplidar_interface_protocol_en.pdf).
 
-## Installing
+</-- ## Installing -->
 
 You can install rplidar using `pip`:
 
