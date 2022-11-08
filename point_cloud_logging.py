@@ -31,8 +31,8 @@ is_save = True
 x = []
 y = []
 
-lidar = RPLidar('COM4')
-# lidar = RPLidar('/dev/ttyUSB0')
+# lidar = RPLidar('COM4')
+lidar = RPLidar('/dev/ttyUSB0')
 info = lidar.get_info()
 print(info)
 
@@ -61,7 +61,7 @@ for i, scan in enumerate(lidar.iter_scans(scan_type='express', max_buf_meas=Fals
     scans.append([x, y])
 
 scans = np.array(scans)
-np.save('scans1', scans)
+np.save('bd2', scans)
 lidar.stop()
 lidar.stop_motor()
 lidar.disconnect()
