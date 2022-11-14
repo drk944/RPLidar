@@ -11,8 +11,9 @@ def draw():
     while is_plot:
         plt.figure(1)
         plt.cla()
-        plt.ylim(-9000, 9000)
-        plt.xlim(-9000, 9000)
+        # plt.ylim(-9000, 9000)
+        # plt.xlim(-9000, 9000)
+        plt.axis('equal')
         plt.scatter(x, y, c='r', s=8)
         plt.pause(0.0001)
     plt.close("all")
@@ -22,8 +23,8 @@ is_plot = True
 x = []
 y = []
 
-lidar = RPLidar('COM4')
-# lidar = RPLidar('/dev/ttyUSB0')
+# lidar = RPLidar('COM4')
+lidar = RPLidar('/dev/ttyUSB0')
 info = lidar.get_info()
 print(info)
 

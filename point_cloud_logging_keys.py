@@ -1,3 +1,8 @@
+'''
+This script allows for easy point cloud logging.
+Press space to record a point cloud
+Press Escape to save and exit
+'''
 from rplidar import RPLidar
 import matplotlib.pyplot as plt
 import math
@@ -131,7 +136,18 @@ for i, scan in enumerate(lidar.iter_scans(scan_type='express', max_buf_meas=Fals
 
 kb.set_normal_term()
 scans = np.array(scans, dtype=object)
-np.save('test_hallway1', scans)
+np.save('test_track_5', scans)
+# notes:
+# test_cb460_1: iterative scans at 10cm. 3m forwards, 2m right
+# test_cb460_2: 5 scans moving around a square clockwise 50cm spacing. Should end up at start
+# test_cb460_3: 5 scans around the same square. Starting at 45 degrees, rotating clockwise 45 degrees at each point. Should end up back at start 180 degrees from original starting point.
+
+# test_track_1: 4 scans 10 cm apart moving straight forward
+# test_track_2: 5 scans 10 cm apart moving to the right
+# test_track_3: 2 scans. translation 10cm forward then 45 degrees clockwise rotation
+# test_track_4: 5 scans, same place, rotated 45 degrees each time clockwise
+# test_track_5: 2 scans, 45 degrees clockwise rotation, 10cm forward, 
+
 lidar.stop()
 lidar.stop_motor()
 lidar.disconnect()
