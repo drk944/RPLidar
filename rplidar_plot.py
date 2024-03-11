@@ -22,8 +22,8 @@ is_plot = True
 x = []
 y = []
 
-lidar = RPLidar('COM4')
-# lidar = RPLidar('/dev/ttyUSB0')
+# lidar = RPLidar('COM4')
+lidar = RPLidar('/dev/ttyUSB1')
 info = lidar.get_info()
 print(info)
 
